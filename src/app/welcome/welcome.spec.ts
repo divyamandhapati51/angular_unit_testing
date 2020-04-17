@@ -1,34 +1,52 @@
-// import {TestBed} from "@angular/core/testing";
-// import {WelcomeComponent} from "./welcome";
+// import {ComponentFixture, TestBed} from '@angular/core/testing';
+// import {WelcomeComponent} from './welcome';
 //
-// class MockUserService {
-//   isLoggedIn = true;
-//   user = { name: 'Test User'};
-//  };
-// beforeEach(() => {
+//
+// describe('WelcomeComponent (with beforeEach)', () => {
+//   let comp: WelcomeComponent;
+//   let fixture: ComponentFixture<WelcomeComponent>;
+//   let el: HTMLElement;
+//   let userServiceStub: Partial<UserService>;
+//
+//   beforeEach(() => {
+//   // stub UserService for test purposes
+//   userServiceStub = {
+//     isLoggedIn: true,
+//     user: { name: 'Test User' },
+//   };
+//
 //   TestBed.configureTestingModule({
-//     // provide the component-under-test and dependent service
-//     providers: [
-//       WelcomeComponent,
-//       { provide: UserService, useClass: MockUserService }
-//     ]
+//     declarations: [ WelcomeComponent ],
+//     providers: [ { provide: UserService, useValue: userServiceStub } ],
 //   });
-//   // inject both the component and the dependent service.
-//   comp = TestBed.inject(WelcomeComponent);
+//
+//   fixture = TestBed.createComponent(WelcomeComponent);
+//   comp    = fixture.componentInstance;
+//   });
+//   // UserService from the root injector
 //   userService = TestBed.inject(UserService);
-// });
-// it('should not have welcome message after construction', () => {
-//   expect(comp.welcome).toBeUndefined();
+//
+//   //  get the "welcome" element by CSS selector (e.g., by class name)
+//   el = fixture.nativeElement.querySelector('.welcome');
+//
+//   it('should welcome the user', () => {
+//   fixture.detectChanges();
+//   const content = el.textContent;
+//   expect(content).toContain('Welcome', '"Welcome ..."');
+//   expect(content).toContain('Test User', 'expected name');
 // });
 //
-// it('should welcome logged in user after Angular calls ngOnInit', () => {
-//   comp.ngOnInit();
-//   expect(comp.welcome).toContain(userService.user.name);
+//   it('should welcome "divya"', () => {
+//   userService.user.name = 'divya'; // welcome message hasn't been shown yet
+//   fixture.detectChanges();
+//   expect(el.textContent).toContain('divya');
 // });
 //
-// it('should ask user to log in if not logged in after ngOnInit', () => {
-//   userService.isLoggedIn = false;
-//   comp.ngOnInit();
-//   expect(comp.welcome).not.toContain(userService.user.name);
-//   expect(comp.welcome).toContain('log in');
-// });
+//   it('should request login if not logged in', () => {
+//   userService.isLoggedIn = false; // welcome message hasn't been shown yet
+//   fixture.detectChanges();
+//   const content = el.textContent;
+//   expect(content).not.toContain('Welcome', 'not welcomed');
+//   expect(content).toMatch(/log in/i, '"log in"');
+//   });
+//   });
