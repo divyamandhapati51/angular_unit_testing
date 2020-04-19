@@ -9,14 +9,15 @@ import {By} from "@angular/platform-browser";
 describe('ProductListComponent', () => {
   let component: ProductListComponent;
   let fixture: ComponentFixture<ProductListComponent>;
-  let debugElement: DebugElement;
+  // let debugElement: DebugElement;
   let productService: ProductService;
+  // let originalTimeout;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ProductListComponent],
       imports: [FormsModule],
-      providers: [productService]
+      providers: [ProductService]
     })
       .compileComponents();
   }));
@@ -24,18 +25,18 @@ describe('ProductListComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ProductListComponent);
     component = fixture.componentInstance;
-    productService = TestBed.get(productService);
+    productService = TestBed.get(ProductService);
     fixture.detectChanges();
   });
 
   it('should test filter product list (done)', (done) => {
     component.searchText = 'fresh';
-    const productSpy = spyOn(productService, 'filterProductList').and.callThrough();
-    component.filterProducts();
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
+    let productSpy = spyOn(productService, 'filterProductList').and.callThrough();
+    component.filterProductList({});
     productSpy.calls.mostRecent().returnValue.then(() => {
       fixture.detectChanges();
-      const value = debugElement
-        .query(By.css('#product_0')).nativeElement.innerText;
+      const value = fixture.debugElement.query(By.css('#product_0')).nativeElement.innerText;
       expect(value).toContain(component.searchText);
       done();
     });
@@ -43,11 +44,11 @@ describe('ProductListComponent', () => {
 
   it('should test filter product list (async)', async(() => {
     component.searchText = 'fresh';
-    const productSpy = spyOn(productService, 'filterProductList').withArgs('fresh').and.callThrough();
-    component.filterProducts();
+    spyOn(productService, 'filterProductList').withArgs('fresh').and.callThrough();
+    component.filterProductList({});
     fixture.whenStable().then(() => {
       fixture.detectChanges();
-      const value = debugElement.query(By.css('#product_0')).nativeElement.innerText;
+      const value = fixture.debugElement.query(By.css('#product_0')).nativeElement.innerText;
       expect(value).toContain(component.searchText);
     });
   }));
@@ -55,12 +56,14 @@ describe('ProductListComponent', () => {
   it('should test filter product list (fakeasync)', fakeAsync(() => {
     component.searchText = 'fresh';
     spyOn(productService, 'filterProductList').withArgs('fresh').and.callThrough();
-    component.filterProducts();
+    component.filterProductList({});
     tick();
     fixture.detectChanges();
-    const value = debugElement.query(By.css('#product_0')).nativeElement.innerText;
+    const bannerDe: DebugElement = fixture.debugElement;
+    const value = bannerDe.query(By.css('#product_0')).nativeElement.innerText;
     expect(value).toContain(component.searchText);
   }));
+
   it('Example -fakeAsync and tick -test the asynchronous code in synchrnous way',
     fakeAsync( () => {
      let isLoggedin = false;

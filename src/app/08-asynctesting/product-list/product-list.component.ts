@@ -16,7 +16,10 @@ export class ProductListComponent implements OnInit {
       this.tempProductList = data;
     });
   }
-  filterProducts() {
+  getProductList(){
+
+  }
+  filterProductList(event) {
     let val = this.searchText;
     this.productService.filterProductList(val).then((data) => {
       this.tempProductList = data;

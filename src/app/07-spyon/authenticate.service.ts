@@ -3,14 +3,14 @@ import {Injectable} from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthenticateService {
 
   constructor() {
   }
-  authenticate(){
+  authenticate() {
     localStorage.setItem('user', 'divya');
   }
-  checkAuthenticate(){
+  checkAuthenticate() {
     return localStorage.getItem('user') === 'divya';
   }
 }

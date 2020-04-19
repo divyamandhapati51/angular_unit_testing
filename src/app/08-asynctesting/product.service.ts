@@ -45,7 +45,7 @@ export class ProductService {
   ];
   constructor() {
   }
-  public getProductList(){
+  public getProductList() {
     return of(this.productList);
   }
   public filterProductList(searchString: string) {
@@ -54,6 +54,4 @@ export class ProductService {
         product => product.title.toLowerCase().indexOf(searchString) > -1)
      ).toPromise();
   }
-
-
 }

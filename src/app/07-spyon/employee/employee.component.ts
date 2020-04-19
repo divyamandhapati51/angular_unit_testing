@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService} from  '../authenticate.service';
+import { AuthenticateService} from  '../authenticate.service';
 
 @Component({
   selector: 'app-employee',
@@ -8,20 +8,20 @@ import { AuthService} from  '../authenticate.service';
 })
 export class EmployeeComponent implements OnInit {
  salSlip : string;
-  constructor( private authService: AuthService) {
-    this.authService.authenticate();
+  constructor( private authenticateService: AuthenticateService) {
+    this.authenticateService.authenticate();
   }
 
   ngOnInit() {
   }
 getSalarySlip() {
-    if (this.authService.checkAuthenticate()){
+    if (this.authenticateService.checkAuthenticate()) {
       return 'salary slip';
     }
     return 'not authenticte';
 }
   getSlip() {
-    if (this.authService.checkAuthenticate()){
+    if (this.authenticateService.checkAuthenticate()){
      this.salSlip = 'salary slip';
     }
   }
