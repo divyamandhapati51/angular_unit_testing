@@ -22,7 +22,7 @@ getSalarySlip() {
 }
   getSlip() {
     if (this.authService.checkAuthenticate()){
-     this.salSlip = "salary slip"
+     this.salSlip = 'salary slip';
     }
   }
 }
