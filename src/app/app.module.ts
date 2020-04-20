@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { BannerComponent } from './banner/banner.component';
 import { LoginComponent } from './09-dependency-injection/login/login.component';
 import { CustomDirectiveComponent } from './10-directive-testing/custom-directive/custom-directive.component';
+import { SpyDemoComponent } from './07-spyon/02-creatspy/spy-demo/spy-demo.component';
 // import { ProductListComponent } from './08-asynctesting/product-list/product-list.component';
 
 
@@ -17,6 +18,7 @@ import { CustomDirectiveComponent } from './10-directive-testing/custom-directiv
     BannerComponent,
     LoginComponent,
     CustomDirectiveComponent,
+    SpyDemoComponent,
     // ProductListComponent,
   ],
   imports: [
